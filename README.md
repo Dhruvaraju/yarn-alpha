@@ -27,3 +27,7 @@ Yarn dependency management learning log
 > yarn supports 2 factor authentication
 
 > Npx is a command which ships with npm used to invoke other functionalities or package binaries like npx grunt.
+## Installing yarn
+- Yarn requires node js installation
+- to install yarn globally ``` npm install -g yarn ``` or you can install through an msi
+- ``` yarn -v ``` to check version of yarn installed.
