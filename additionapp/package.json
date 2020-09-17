@@ -1,0 +1,32 @@
+{
+  "name": "additionapp",
+  "version": "1.0.0",
+  "description": "adding two numbers",
+  "main": "index.js",
+  "scripts": {
+    "test": "BABEL_ENV=test ava"
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "source": [
+      "src/*.{js}",
+      "!dist/**/*"
+    ],
+    "tap": true,
+    "require": "babel-register",
+    "babel": "inherit"
+  },
+  "author": "dhruva",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@ava/babel": "^1.0.1",
+    "@ava/babel-preset-stage-4": "^4.0.0",
+    "ava": "^3.12.1",
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
