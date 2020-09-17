@@ -155,3 +155,31 @@ Normal dependencies are usually installed from the npm registry. Bundled depende
   }
 }
 ```
+
+## semantic versioning
+
+A way of versioning with three values example as below, Denoting the major minor and patch version.
+
+![semantic versioning](images/semantic-versioning.png)
+
+- a character will placed in front of the version number in semantic versioning. The significance for the character and meaning is explained in the below table.
+
+| Modifier | Usage           | Type                                   | Effective Range     | Description                                                                                                            |
+| -------- | --------------- | -------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| none     | ‘4.9.5’         | Exact                                  | 0nly 4.9.5          | Use the exact and only version                                                                                         |
+| =        | ‘=4.9.5’        | Exact                                  | Only 4.9.5          | Use the exact and only version                                                                                         |
+| ^        | ‘^4.9.5’        | Latest Minor                           | 4.9.5 – 4.999.999   | Latest version greater than or equal to the current minor version, But it should be the current major version.         |
+| ~        | ‘~4.9.5’        | Latest patch                           | 4.9.5 – 4.9.999     | Latest version greater than or equal to the current patch version, But the current major and minor should remain same. |
+| >        | ‘>4.9.5’        | Greater Than                           | 4.9.6 – 999.999.999 | Any version greater than the current version mentioned                                                                 |
+| <        | ‘<4.9.5’        | Less Than                              | 1.0.0 – 4.9.499     | Any version less than the current version mentioned                                                                    |
+| >=       | ‘>=4.9.5’       | Greater than or equal to               | 4.9.5 – 999.999.999 | Any version greater than or equal to the current version mentioned.                                                    |
+| <=       | ‘<=4.9.5’       | Less than or equal to                  | 1.0.0 – 4.9.5       | Any version less than or equal to the current version mentioned                                                        |
+| \*       | ‘\*’            | Latest any                             | 0.0.0 – 999.999.999 | Latest version possible                                                                                                |
+| x        | ‘x’             | Latest Any                             | 0.0.0 – 999.999.999 | Latest version possible                                                                                                |
+| \*       | ‘4.\*’          | Latest any minor with major 4          | 4.0.0 – 4.999.999   | Any minor and patch version combination but with same major version as mentioned                                       |
+| x        | ‘4.x’           | Latest any minor with major 4          | 4.0.0 – 4.999.999   | Any minor and patch version combination but with same major version as mentioned                                       |
+| \*       | ‘4.9.\*’        | Latest patch with same minor and major | 4.9.0 – 4.9.999     | Any patch version with the mentioned major and minor version                                                           |
+| x        | ‘4.9.x’         | Latest patch with same minor and major | 4.9.0 – 4.9.999     | Any patch version with the mentioned major and minor version                                                           |
+| -        | ‘4.9.5 – 9.9.9’ | Between the range specified            | 4.5.9 – 9.9.9       | Any version between the range mentioned including the mentioned versions                                               |
+
+> The same table is available as an image [semantic version cheat sheet](images/semantic-versioning-cheat-sheet.png)
