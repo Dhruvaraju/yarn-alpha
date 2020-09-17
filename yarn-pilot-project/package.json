@@ -1,0 +1,11 @@
+{
+  "name": "yarn-pilot-project",
+  "version": "1.0.0",
+  "description": "pilot project to learn yarn",
+  "main": "index.js",
+  "author": "dhruva",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
