@@ -183,3 +183,261 @@ A way of versioning with three values example as below, Denoting the major minor
 | -        | ‘4.9.5 – 9.9.9’ | Between the range specified            | 4.5.9 – 9.9.9       | Any version between the range mentioned including the mentioned versions                                               |
 
 > The same table is available as an image [semantic version cheat sheet](images/semantic-versioning-cheat-sheet.png)
+
+## Lock files and versioning
+
+- when we use yarn add <package_name> it will by default install the latest version.
+- If you want to install a different version Later. In the package.json modify the version you need. The above mentioned semantic versioning wild cards can be used.
+- Another way to install a particular version of dependency is ` yarn add <package_name>@version-number`. like `yarn add express@2.1.0`
+
+The version details will be saved in the yarn.lock file as mentioned below:
+
+Name of dependency with the version that can be allowed for installation, current version installed, where was the file downloaded from, integrity hash and dependencies.
+
+In the below example, express can be installed with any minor version of 4 as major release, Current installed version being '4.17.1', download url, secure hash and dependencies are available. Few dependencies might not have dependencies.
+
+```
+express@^4.17.1:
+  version "4.17.1"
+  resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
+  integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
+  dependencies:
+    accepts "~1.3.7"
+    array-flatten "1.1.1"
+    body-parser "1.19.0"
+    content-disposition "0.5.3"
+    content-type "~1.0.4"
+    cookie "0.4.0"
+    cookie-signature "1.0.6"
+    debug "2.6.9"
+    depd "~1.1.2"
+    encodeurl "~1.0.2"
+    escape-html "~1.0.3"
+    etag "~1.8.1"
+    finalhandler "~1.1.2"
+    fresh "0.5.2"
+    merge-descriptors "1.0.1"
+    methods "~1.1.2"
+    on-finished "~2.3.0"
+    parseurl "~1.3.3"
+    path-to-regexp "0.1.7"
+    proxy-addr "~2.0.5"
+    qs "6.7.0"
+    range-parser "~1.2.1"
+    safe-buffer "5.1.2"
+    send "0.17.1"
+    serve-static "1.14.1"
+    setprototypeof "1.1.1"
+    statuses "~1.5.0"
+    type-is "~1.6.18"
+    utils-merge "1.0.1"
+    vary "~1.1.2"
+```
+
+- Yarn always check the local cached repo for the current version of dependency you are looking for, if it is available it will get it from there, else it will load from the online repository.
+- When we have a registry mocked or configured, yarn always searches for the dependency in that registry, if it is not available the it goes to the npm registry.
+
+  > So priority for downloading dependencies is
+  >
+  > - priority:01 local cached files
+  > - Priority:02 configured registry
+  > - priority:03 npm registry
+
+## Yarn outdated
+
+- Command to identify how many packages are having an outdated version currently being used.
+- The yarn outdated output looks something like below when you have an older version of a specific dependency available in your package.json.
+
+```
+yarn outdated v1.22.5
+info Color legend :
+ "<red>"    : Major Update backward-incompatible updates
+ "<yellow>" : Minor Update backward-compatible features
+ "<green>"  : Patch Update backward-compatible bug fixes
+Package Current Wanted Latest Package Type URL
+express 4.10.0  4.10.0 4.17.1 dependencies http://expressjs.com/
+Done in 0.83s.
+```
+
+## yarn upgrade
+
+- Use this command to update any outdated versions of the dependencies.
+- This command will update the version to the latest one displayed in output of `yarn outdated`.
+- To upgrade a single dependency use the command `yarn upgrade <package-name>`.
+- To upgrade all the packages in package.json use `yarn upgrade`
+- In the above example `yarn upgrade express` will update express to 4.17.1, as it is with in the range.
+
+## Exploring dependency tree
+
+### yarn list
+
+- This will list all the dependencies in a tree structure.
+
+```
+yarn list v1.22.5
+├─ accepts@1.1.4
+│  ├─ mime-types@~2.0.4
+│  └─ negotiator@0.4.9
+├─ content-disposition@0.5.0
+├─ cookie-signature@1.0.5
+├─ cookie@0.1.2
+├─ crc@3.2.1
+├─ debug@2.1.3
+│  ├─ ms@0.7.0
+│  └─ ms@0.7.0
+├─ depd@1.0.1
+├─ destroy@1.0.3
+├─ ee-first@1.1.0
+├─ escape-html@1.0.1
+├─ etag@1.5.1
+│  └─ crc@3.2.1
+├─ express@4.10.0
+│  ├─ accepts@~1.1.2
+│  ├─ content-disposition@0.5.0
+│  ├─ cookie-signature@1.0.5
+│  ├─ cookie@0.1.2
+│  ├─ debug@~2.1.0
+│  ├─ depd@~1.0.0
+│  ├─ escape-html@1.0.1
+│  ├─ etag@~1.5.0
+│  ├─ finalhandler@0.3.2
+│  ├─ fresh@0.2.4
+│  ├─ media-typer@0.3.0
+│  ├─ merge-descriptors@0.0.2
+│  ├─ methods@1.1.0
+│  ├─ on-finished@~2.1.1
+│  ├─ parseurl@~1.3.0
+│  ├─ path-to-regexp@0.1.3
+│  ├─ proxy-addr@~1.0.3
+│  ├─ qs@2.3.0
+│  ├─ range-parser@~1.0.2
+│  ├─ send@0.10.1
+│  ├─ serve-static@~1.7.1
+│  ├─ type-is@~1.5.2
+│  ├─ utils-merge@1.0.0
+│  └─ vary@~1.0.0
+├─ finalhandler@0.3.2
+│  ├─ debug@~2.1.0
+│  ├─ escape-html@1.0.1
+│  └─ on-finished@~2.1.1
+├─ forwarded@0.1.2
+├─ fresh@0.2.4
+├─ ipaddr.js@1.0.5
+├─ media-typer@0.3.0
+├─ merge-descriptors@0.0.2
+├─ methods@1.1.0
+├─ mime-db@1.12.0
+├─ mime-types@2.0.14
+│  └─ mime-db@~1.12.0
+├─ mime@1.2.11
+├─ ms@0.6.2
+├─ negotiator@0.4.9
+├─ on-finished@2.1.1
+│  └─ ee-first@1.1.0
+├─ parseurl@1.3.3
+├─ path-to-regexp@0.1.3
+├─ proxy-addr@1.0.10
+│  ├─ forwarded@~0.1.0
+│  └─ ipaddr.js@1.0.5
+├─ qs@2.3.0
+├─ range-parser@1.0.3
+├─ send@0.10.1
+│  ├─ debug@~2.1.0
+│  ├─ depd@~1.0.0
+│  ├─ destroy@1.0.3
+│  ├─ escape-html@1.0.1
+│  ├─ etag@~1.5.0
+│  ├─ fresh@0.2.4
+│  ├─ mime@1.2.11
+│  ├─ ms@0.6.2
+│  ├─ on-finished@~2.1.1
+│  └─ range-parser@~1.0.2
+├─ serve-static@1.7.2
+│  ├─ escape-html@1.0.1
+│  ├─ parseurl@~1.3.0
+│  ├─ send@0.10.1
+│  └─ utils-merge@1.0.0
+├─ type-is@1.5.7
+│  ├─ media-typer@0.3.0
+│  └─ mime-types@~2.0.9
+├─ utils-merge@1.0.0
+└─ vary@1.0.1
+```
+
+## yarn why
+
+- This command is used to know why a specific package exists in your dependency list.
+- general syntax is ` yarn why <package-name>`
+- from the above list for express, `yarn why send` will provide below mentioned output.
+- 'send' package is installed because express package depends on it. we can also get other information.
+
+```
+yarn why v1.22.5
+[1/4] Why do we have the module "send"...?
+[2/4] Initialising dependency graph...
+[3/4] Finding dependency...
+[4/4] Calculating file sizes...
+=> Found "send@0.10.1"
+info Reasons this module exists
+   - "express" depends on it
+   - Hoisted from "express#send"
+   - Hoisted from "express#serve-static#send"
+info Disk size without dependencies: "44KB"
+info Disk size with unique dependencies: "376KB"
+info Disk size with transitive dependencies: "456KB"
+info Number of shared dependencies: 10
+Done in 0.19s.
+```
+
+## yarn info
+
+- To find information on any specific package we can use this command
+- Syntax being `yarn info <package-name>`. It will search the online registry and get info from readme.md file.
+- we can also get specific portion of the document by using the heading names in the document.
+- `yarn info express description` output is mentioned below.
+
+```
+yarn info v1.22.5
+Fast, unopinionated, minimalist web framework
+Done in 0.26s.
+```
+
+## Advanced yarn features
+
+Not only yhe above mentioned features yarn also has many other advanced features. Config, ability add scripts, cleaning projects, caching etc
+
+## Yarn config
+
+- To see default configurations of yarn for a project run `yarn config list`.
+
+```
+yarn config v1.22.5
+info yarn config
+{
+  'version-tag-prefix': 'v',
+  'version-git-tag': true,
+  'version-commit-hooks': true,
+  'version-git-sign': false,
+  'version-git-message': 'v%s',
+  'init-version': '1.0.0',
+  'init-license': 'MIT',
+  'save-prefix': '^',
+  'bin-links': true,
+  'ignore-scripts': false,
+  'ignore-optional': false,
+  registry: 'https://registry.yarnpkg.com',
+  'strict-ssl': true,
+  'user-agent': 'yarn/1.22.5 npm/? node/v12.16.2 win32 x64',
+  lastUpdateCheck: 1600795223290
+}
+info npm config
+{}
+Done in 0.10s.
+```
+
+- To change any particular configuration component use the command as `yarn config set <setting-to-be-changed> <value>`
+- Example `yarn config save-prefix '~'`
+- We can also change the config settings by using a .yarnrc file.
+- The global yarnrc file will be available in c:/users/<username>/.yarnrc in mac and linux it will be in home directory.
+- If we modify the yarnrc file it will behave same like setting a config parameter.
+- yarnrc file can exist for a project, if it is not available the default will be global rc file.
