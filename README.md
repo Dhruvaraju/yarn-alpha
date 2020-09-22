@@ -243,7 +243,7 @@ express@^4.17.1:
   > - Priority:02 configured registry
   > - priority:03 npm registry
 
-## Yarn outdated
+## yarn outdated
 
 - Command to identify how many packages are having an outdated version currently being used.
 - The yarn outdated output looks something like below when you have an older version of a specific dependency available in your package.json.
@@ -406,7 +406,7 @@ Done in 0.26s.
 
 Not only yhe above mentioned features yarn also has many other advanced features. Config, ability add scripts, cleaning projects, caching etc
 
-## Yarn config
+## yarn config
 
 - To see default configurations of yarn for a project run `yarn config list`.
 
@@ -438,6 +438,37 @@ Done in 0.10s.
 - To change any particular configuration component use the command as `yarn config set <setting-to-be-changed> <value>`
 - Example `yarn config save-prefix '~'`
 - We can also change the config settings by using a .yarnrc file.
-- The global yarnrc file will be available in c:/users/<username>/.yarnrc in mac and linux it will be in home directory.
+- The global yarnrc file will be available in c:/users/<user-name>/.yarnrc in mac and linux it will be in home directory.
 - If we modify the yarnrc file it will behave same like setting a config parameter.
 - yarnrc file can exist for a project, if it is not available the default will be global rc file.
+
+## yarn scripts
+
+A dependency management tool not only manages dependencies, but it also maintains few processes like, running unit tests, building projects and starting projects this can be achieved by adding scripts objects in package.json.
+
+## yarn run
+
+- Add scripts object in package.json and give it an echo command as mentioned below.
+- use `yarn run` command to invoke a script here it is `yarn run message`
+- If we are using non yarn key words then we can use `yarn message`
+- if you use a yarn key word then you have to use ` yarn run <script-name>` like `yarn run list` in below example
+
+```
+{
+  "name": "yarn-pilot-project",
+  "version": "1.0.0",
+  "description": "pilot project to learn yarn",
+  "main": "index.js",
+  "author": "dhruva",
+  "license": "MIT",
+  "scripts": {
+    "message": "echo hello-world",
+    "list": "yarn list",
+    "start": "node ./test.js"
+  },
+  "dependencies": {
+    "express": "4.10.0"
+  }
+}
+
+```

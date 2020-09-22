@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "dhruva",
   "license": "MIT",
+  "scripts": {
+    "message": "echo hello-world",
+    "start": "node ./test.js"
+  },
   "dependencies": {
     "express": "4.10.0"
   }
