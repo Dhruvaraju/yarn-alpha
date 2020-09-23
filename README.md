@@ -472,3 +472,55 @@ A dependency management tool not only manages dependencies, but it also maintain
 }
 
 ```
+
+## yarn autoclean
+
+This command is used to clean unnecessary files in the packages downloaded, this comes in handy when there is a necessity to load node modules to your version control. This might not reduce the memory size drastically, but huge number of files can be removed.
+
+- Use ` yarn autoclean --init` to generate a '.yarnclean' file which will mention all the files that will be removed.
+- An example yarnclean file is available in the code of this project.
+- Once yarnclean file is generated from then on when we add a new dependency yarn will automatically clean unnecessary files.
+- To run yarn autoclean on demand use ` yarn autoclean --force`.
+
+## Global packages
+
+- These are the packages that can be installed on an operating system and can be accessible from any where on an os.
+- Examples for global packages are grunt, prettier etc.
+- handling global packages with yarn all we need to do is use global as prefix
+
+| command                             | usage                                 |
+| ----------------------------------- | ------------------------------------- |
+| yarn global list                    | to list all global packages installed |
+| yarn global add <<package-name>>    | to add a new global package           |
+| yarn global remove <<package-name>> | to remove a specific package          |
+| yarn global upgrade                 | to upgrade a global packages          |
+
+> The sub commands supported with yarn global are _add, bin, dir, ls, list, remove, upgrade, upgrade-interactive_.
+
+## yarn cache
+
+- Yarn caches all the packages locally
+- `yarn cache list` provides the list of all the cached files locally.
+- `yarn cache dir` provides the folder on which this caching is done. In windows it might be like `C:\Users\<<user-name>>\AppData\Local\Yarn\Cache\v6`
+- `yarn cache clean` to remove all packages from cache.
+- `yarn cache clean <<package-name>>` to remove a specific package from cache.
+- To change the cache location for yarn use `yarn config set cache-folder <<new-path>>`.
+
+## Migrating an existing npm project to yarn
+
+NPM and yarn has a different package structure, the equivalent of the yarn.lock file for npm is package.lock.json. If we want to migrate from an NPM project to yarn by keeping exact dependency structure in place, use `yarn import` command.
+
+## yarn import
+
+- To import an existing npm project to yarn.
+- This will check the package.json and generate a yarn.lock file.
+- `yarn import` should be run in the root folder of project or the place where package.json is available.
+
+## yarn check
+
+- Used to check if the node modules are proper as per the lock file and are they installed or not.
+- Generally after import from npm to yarn, there will be few errors and few packages that are not installed.
+- Yarn check will show all the packages that are not installed and versions mismatching to resolve this we can run `yarn upgrade` which will upgrade all the packages and get the correct version of files.
+- We can also check integrity of a project by using ` yarn check --integrity`.
+
+> Transition from npm to yarn is not that perfect all the time, yarns tools can be utilized to make this transition better.
