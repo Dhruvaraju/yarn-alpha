@@ -524,3 +524,88 @@ NPM and yarn has a different package structure, the equivalent of the yarn.lock 
 - We can also check integrity of a project by using ` yarn check --integrity`.
 
 > Transition from npm to yarn is not that perfect all the time, yarns tools can be utilized to make this transition better.
+
+## Creating and publishing a package to npm registry
+
+- Register in npmjs.com, required for publishing to npm registry.
+- create a new package for publishing to npm.
+
+## Create a package
+
+- A new package is created in a folder called criptic-alpha
+- To initiate it as aan yarn package navigate to folder and use `yarn init`.
+- Provide proper name and other details.
+
+```
+{
+  "name": "criptic-alpha",
+  "version": "1.0.0",
+  "description": "To encrypt and decrypt text",
+  "main": "criptic.js",
+  "repository": "git repository link",
+  "author": "Name <email>",
+  "license": "MIT",
+  "dependencies": {
+    "crypto": "^1.0.1"
+  }
+}
+```
+
+Criptic-alpha is a project which will help to encrypt and decrypt a text for more information [criptic-alpha-readme](https://github.com/Dhruvaraju/criptic-alpha/blob/master/README.md)
+
+## Referencing package locally
+
+While developing package locally, we cannot test it as a package. If we use yarn criptic-alpha it will not be found in registry. To test a package locally yarn provides `yarn link` command.
+
+## yarn link
+
+- used to add a local package to yarn in local file system.
+- Navigate to root location of your package or the location where package.json is present and run ` yarn link`.
+- this will add the current package to any project in your local machine with its name.
+- to add the package in project use the command `yarn link <<package-name>>`.
+- After adding yarn list will not show it as a package, but it will be added as a system link.
+
+**example test after linking**
+
+```javascript
+const criptic = require("criptic-alpha");
+
+let hash = criptic.encrypt("Hi how are you");
+let text = criptic.decrypt(hash);
+
+console.log(hash);
+console.log(text);
+```
+
+## yarn unlink
+
+- After testing and ready to publish you can remove link by using `yarn unlink <<package-name>>`.
+
+There is another method of testing it locally.
+
+## yarn pack
+
+- This command will pack the package as a file that will be delivered from any registry
+- Navigate to package root folder and run `` yarn pack`
+- this will create a file like 'criptic-alpha-v1.0.0.tgz'
+- if we extract it we will have only package.json and the js source code file, only these two will be loaded to registry
+- We can now add this locally by using ``` yarn add <<package-location/package-name>>
+- this will reflect in the package.json unlike yarn link.
+
+## Publishing package to registry
+
+- use `yarn publish` to publish your package to registry
+- FIrst time while using it will ask log in credentials to npm.
+
+## Updating code and re publishing again
+
+- Update your code changes
+- Test them locally by pack or link
+- Updating version can be done in three ways
+  - package.json manual update
+  - running `yarn version` command in the root directory
+  - just run `yarn publish` when it asks for new version number you can update it.
+
+## Publishing Sequence
+
+![public-sequence](images/publish-sequence.svg)
